@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * This interface defines an editor input for in-place editors.
  * <p>
@@ -35,5 +37,5 @@ public interface IInPlaceEditorInput extends IPathEditorInput {
      * @param editor the in-place editor associated with this input
      * 		or <code>null</code> to disassociate.
      */
-    public void setInPlaceEditor(IInPlaceEditor editor);
+	public void setInPlaceEditor(@Nullable IInPlaceEditor editor);
 }

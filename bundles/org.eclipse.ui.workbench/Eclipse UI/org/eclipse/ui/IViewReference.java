@@ -11,6 +11,8 @@
 
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * Defines a reference to an IViewPart.
  * <p>
@@ -27,6 +29,7 @@ public interface IViewReference extends IWorkbenchPartReference {
      * @see IWorkbenchPage#showView(String, String, int)
      * @since 3.0
      */
+	@Nullable
     public String getSecondaryId();
 
     /**
@@ -35,6 +38,7 @@ public interface IViewReference extends IWorkbenchPartReference {
      * it failed to be restored.  Tries to restore the view
      * if <code>restore</code> is true.
      */
+	@Nullable
     public IViewPart getView(boolean restore);
 
     /**

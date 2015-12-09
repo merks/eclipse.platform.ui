@@ -11,6 +11,7 @@
 
 package org.eclipse.ui.internal.quickaccess;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.osgi.util.NLS;
@@ -43,6 +44,7 @@ public class PerspectiveElement extends QuickAccessElement {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow window = workbench
 				.getActiveWorkbenchWindow();
+		Assert.isNotNull(window);
 		IWorkbenchPage activePage = window.getActivePage();
 		if (activePage != null) {
 			activePage.setPerspective(descriptor);

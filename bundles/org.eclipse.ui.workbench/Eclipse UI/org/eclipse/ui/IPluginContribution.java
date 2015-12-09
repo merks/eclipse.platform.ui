@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * An interface that descriptor classes may implement in addition to their
  * descriptor interface. This indicates that they may or may not originate from
@@ -31,5 +33,6 @@ public interface IPluginContribution {
      * @return the id of the originating plugin. Can be <code>null</code> if
      *         this contribution did not originate from a plugin.
      */
+	@Nullable
     public String getPluginId();
 }

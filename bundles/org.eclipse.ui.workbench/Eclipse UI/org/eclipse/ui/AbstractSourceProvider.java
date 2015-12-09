@@ -14,6 +14,8 @@ package org.eclipse.ui;
 import java.util.Map;
 import org.eclipse.core.commands.util.Tracing;
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ui.internal.misc.Policy;
 import org.eclipse.ui.services.IServiceLocator;
 
@@ -65,7 +67,7 @@ public abstract class AbstractSourceProvider implements ISourceProvider {
 	 *            The new value for the source; may be <code>null</code>.
 	 */
 	protected final void fireSourceChanged(final int sourcePriority,
-			final String sourceName, final Object sourceValue) {
+			final String sourceName, @Nullable final Object sourceValue) {
 		for (ISourceProviderListener listener : listeners) {
 			listener.sourceChanged(sourcePriority, sourceName, sourceValue);
 		}
@@ -83,7 +85,7 @@ public abstract class AbstractSourceProvider implements ISourceProvider {
 	 *            <code>null</code>, but the values may be <code>null</code>.
 	 */
 	protected final void fireSourceChanged(final int sourcePriority,
-			final Map sourceValuesByName) {
+			final Map<@NonNull String, Object> sourceValuesByName) {
 
 		for (ISourceProviderListener listener : listeners) {
 			listener.sourceChanged(sourcePriority, sourceValuesByName);
@@ -100,7 +102,7 @@ public abstract class AbstractSourceProvider implements ISourceProvider {
 	 *            nothing is logged.
 	 * @since 3.2
 	 */
-	protected final void logDebuggingInfo(final String message) {
+	protected final void logDebuggingInfo(@Nullable final String message) {
 		if (DEBUG && (message != null)) {
 			Tracing.printTrace("SOURCES", message); //$NON-NLS-1$
 		}

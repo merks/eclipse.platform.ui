@@ -12,6 +12,7 @@
 package org.eclipse.ui;
 
 import java.util.Map;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * <p>
@@ -62,6 +63,7 @@ public interface ISourceProvider {
 	 *         values (<code>Object</code>). This may be empty, and may be
 	 *         <code>null</code>.
 	 */
+	@Nullable
 	public Map getCurrentState();
 
 	/**

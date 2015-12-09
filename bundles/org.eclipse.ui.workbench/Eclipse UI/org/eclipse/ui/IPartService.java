@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * A part service tracks the creation and activation of parts within a
  * workbench page.
@@ -69,6 +71,7 @@ public interface IPartService {
      *
      * @return the active part, or <code>null</code> if no part is currently active
      */
+	@Nullable
     public IWorkbenchPart getActivePart();
 
     /**
@@ -77,6 +80,7 @@ public interface IPartService {
      * @return the active part reference, or <code>null</code> if no part
      * is currently active
      */
+	@Nullable
     public IWorkbenchPartReference getActivePartReference();
 
     /**

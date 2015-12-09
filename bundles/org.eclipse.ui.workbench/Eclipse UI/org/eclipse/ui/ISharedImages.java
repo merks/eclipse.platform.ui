@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.Device;
 
 /**
  * A registry for common images used by the workbench which may be useful
@@ -604,6 +605,7 @@ public interface ISharedImages {
      * declared in this interface for build-in images that come with the workbench
      * @return the image, or <code>null</code> if not found
      */
+	@Nullable
     public Image getImage(String symbolicName);
 
     /**
@@ -615,5 +617,6 @@ public interface ISharedImages {
      * declared in this interface for build-in images that come with the workbench
      * @return the image descriptor, or <code>null</code> if not found
      */
+	@Nullable
     public ImageDescriptor getImageDescriptor(String symbolicName);
 }

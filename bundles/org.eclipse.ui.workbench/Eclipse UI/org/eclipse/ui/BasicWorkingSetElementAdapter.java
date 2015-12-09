@@ -14,12 +14,12 @@ package org.eclipse.ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.service.packageadmin.ExportedPackage;
@@ -108,6 +108,7 @@ public final class BasicWorkingSetElementAdapter implements
 	 * @return the resultant adaptable. May be the same adaptable, a new
 	 *         adaptable, or <code>null</code>.
 	 */
+	@Nullable
 	private IAdaptable adapt(IAdaptable adaptable) {
 		for (int i = 0; i < preferredTypes.length; i++) {
 			IAdaptable adaptedAdaptable = adapt(preferredTypes[i], adaptable);
@@ -127,6 +128,7 @@ public final class BasicWorkingSetElementAdapter implements
 	 * @return the resultant adaptable. May be the same adaptable, a new
 	 *         adaptable, or <code>null</code>.
 	 */
+	@Nullable
 	private IAdaptable adapt(Type type, IAdaptable adaptable) {
 		IAdapterManager adapterManager = Platform.getAdapterManager();
 		Class[] directClasses = adapterManager.computeClassOrder(adaptable
@@ -232,6 +234,7 @@ public final class BasicWorkingSetElementAdapter implements
 	 *
 	 * @return the PackageAdmin service or null if it is not available
 	 */
+	@Nullable
 	private PackageAdmin getPackageAdmin() {
 		if (packageTracker == null) {
 			packageTracker = new ServiceTracker(WorkbenchPlugin.getDefault()

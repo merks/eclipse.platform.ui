@@ -11,7 +11,7 @@
 package org.eclipse.ui;
 
 import java.util.EventListener;
-
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.viewers.ISelection;
 
 /**
@@ -39,5 +39,5 @@ public interface ISelectionListener extends EventListener {
      * @param selection the current selection. This may be <code>null</code>
      * 		if <code>INullSelectionListener</code> is implemented.
      */
-    public void selectionChanged(IWorkbenchPart part, ISelection selection);
+	public void selectionChanged(IWorkbenchPart part, @Nullable ISelection selection);
 }

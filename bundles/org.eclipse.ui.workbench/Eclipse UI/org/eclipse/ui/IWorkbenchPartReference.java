@@ -11,6 +11,7 @@
 
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.swt.graphics.Image;
 
@@ -32,6 +33,7 @@ public interface IWorkbenchPartReference {
 	 * @return the part, or <code>null</code> if the part was not instantiated
 	 *         or it failed to be restored.
 	 */
+	@Nullable
     public IWorkbenchPart getPart(boolean restore);
 
     /**
@@ -108,6 +110,7 @@ public interface IWorkbenchPartReference {
 	 * @return The String property, or <code>null</code>.
 	 * @since 3.3
 	 */
+	@Nullable
     public String getPartProperty(String key);
 
     /**

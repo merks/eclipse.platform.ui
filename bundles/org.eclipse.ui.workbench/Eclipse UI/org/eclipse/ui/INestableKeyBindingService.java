@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.ui.services.IServiceLocator;
 
 /**
@@ -43,7 +44,7 @@ public interface INestableKeyBindingService extends IKeyBindingService {
      * the case of a <code>null</code> parameter); <code>false</code> if
      * nothing changed.
      */
-    public boolean activateKeyBindingService(IWorkbenchSite nestedSite);
+	public boolean activateKeyBindingService(@Nullable IWorkbenchSite nestedSite);
 
     /**
      * An accessor for the nested key binding service associated with a

@@ -80,6 +80,7 @@ public interface IEditorPart extends IWorkbenchPart, ISaveablePart {
      * @return the editor site; this value may be <code>null</code> if the editor
      *         has not yet been initialized
      */
+	// @Nullable?
     public IEditorSite getEditorSite();
 
     /**

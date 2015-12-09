@@ -13,6 +13,7 @@ package org.eclipse.ui;
 import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.window.IShellProvider;
@@ -72,7 +73,8 @@ public interface IWorkbenchWindow extends IPageService, IRunnableContext,
      *
      * @return the active page, or <code>null</code> if none
      */
-    @Override
+	@Override
+	@Nullable
 	public IWorkbenchPage getActivePage();
 
     /**
@@ -108,7 +110,8 @@ public interface IWorkbenchWindow extends IPageService, IRunnableContext,
      * @return the shell containing this window's controls or <code>null</code>
      *   if the shell has not been created yet or if the window has been closed
      */
-    @Override
+	@Override
+	@Nullable
 	public Shell getShell();
 
     /**
@@ -159,7 +162,7 @@ public interface IWorkbenchWindow extends IPageService, IRunnableContext,
      *
      * @see IWorkbench#showPerspective(String, IWorkbenchWindow, IAdaptable)
      */
-    public IWorkbenchPage openPage(String perspectiveId, IAdaptable input)
+	public IWorkbenchPage openPage(String perspectiveId, @Nullable IAdaptable input)
             throws WorkbenchException;
 
     /**
@@ -183,7 +186,7 @@ public interface IWorkbenchWindow extends IPageService, IRunnableContext,
      *
      * @see IWorkbench#showPerspective(String, IWorkbenchWindow, IAdaptable)
      */
-    public IWorkbenchPage openPage(IAdaptable input) throws WorkbenchException;
+	public IWorkbenchPage openPage(@Nullable IAdaptable input) throws WorkbenchException;
 
     /**
      * This specialization of IRunnableContext#run(boolean, boolean,
@@ -206,7 +209,7 @@ public interface IWorkbenchWindow extends IPageService, IRunnableContext,
 	 * @param page
 	 *            the new active page, or <code>null</code> for no active page
 	 */
-    public void setActivePage(IWorkbenchPage page);
+	public void setActivePage(@Nullable IWorkbenchPage page);
 
     /**
 	 * <p>

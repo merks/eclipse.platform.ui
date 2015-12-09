@@ -13,6 +13,7 @@ package org.eclipse.ui.internal.dnd;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.util.Geometry;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -22,6 +23,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tracker;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.DragCursors;
 
@@ -290,7 +292,7 @@ public class DragUtil {
         // HACK:
         // Some control needs to capture the mouse during the drag or other
         // controls will interfere with the cursor
-        Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		Shell shell = getActiveWindowShell();
         if (shell != null) {
             shell.setCapture(true);
         }
@@ -328,6 +330,12 @@ public class DragUtil {
 
         return null;
     }
+
+	@Nullable
+	private static Shell getActiveWindowShell() {
+		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		return window == null ? null : window.getShell();
+	}
 
     /**
      * Given a list of IDragOverListeners and a description of what is being dragged, it returns

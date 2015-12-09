@@ -13,6 +13,7 @@ package org.eclipse.ui;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * A checked exception indicating a recoverable error occured internal to the
@@ -45,7 +46,7 @@ public class WorkbenchException extends CoreException {
      * @param message the message
      * @param nestedException an exception to be wrapped by this WorkbenchException
      */
-    public WorkbenchException(String message, Throwable nestedException) {
+	public WorkbenchException(String message, @Nullable Throwable nestedException) {
         this(new Status(IStatus.ERROR, PlatformUI.PLUGIN_ID, 0, message,
                 nestedException));
     }

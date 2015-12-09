@@ -11,6 +11,7 @@
 package org.eclipse.ui;
 
 import org.eclipse.core.runtime.content.IContentType;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
@@ -90,6 +91,7 @@ public interface IEditorRegistry {
      * @return the editor descriptor with the given id, or <code>null</code> if not
      *   found
      */
+	@Nullable
     public IEditorDescriptor findEditor(String editorId);
 
     /**
@@ -116,6 +118,7 @@ public interface IEditorRegistry {
 	 * @return the descriptor of the default editor, or <code>null</code> if
 	 *         not found
 	 */
+	@Nullable
     public IEditorDescriptor getDefaultEditor(String fileName);
 
     /**
@@ -131,7 +134,8 @@ public interface IEditorRegistry {
      *   found
      * @since 3.1
      */
-    public IEditorDescriptor getDefaultEditor(String fileName, IContentType contentType);
+	@Nullable
+	public IEditorDescriptor getDefaultEditor(String fileName, @Nullable IContentType contentType);
 
     /**
 	 * Returns the list of file editors registered to work against the file with
@@ -164,7 +168,7 @@ public interface IEditorRegistry {
 	 * @return a list of editor descriptors
 	 * @since 3.1
 	 */
-    public IEditorDescriptor[] getEditors(String fileName, IContentType contentType);
+	public IEditorDescriptor[] getEditors(String fileName, @Nullable IContentType contentType);
 
     /**
      * Returns a list of mappings from file type to editor.  The resulting list
@@ -213,7 +217,7 @@ public interface IEditorRegistry {
 	 * @return the descriptor of the image to display next to the file
 	 * @since 3.1
 	 */
-    public ImageDescriptor getImageDescriptor(String filename, IContentType contentType);
+	public ImageDescriptor getImageDescriptor(String filename, @Nullable IContentType contentType);
 
     /**
 	 * Removes the given property listener from this registry. Has no effect if
@@ -232,7 +236,7 @@ public interface IEditorRegistry {
      * @param fileNameOrExtension the file name or extension pattern (e.g. "*.xml");
      * @param editorId the editor id or <code>null</code> for no default
      */
-    public void setDefaultEditor(String fileNameOrExtension, String editorId);
+	public void setDefaultEditor(String fileNameOrExtension, @Nullable String editorId);
 
     /**
      * Returns whether there is an in-place editor that could handle a file
@@ -265,6 +269,7 @@ public interface IEditorRegistry {
      * if none
      * @since 3.0
      */
+	@Nullable
     public ImageDescriptor getSystemExternalEditorImageDescriptor(
             String filename);
 }

@@ -14,6 +14,8 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * A page layout defines the initial layout for a perspective within a page
  * in a workbench window.
@@ -459,6 +461,7 @@ public interface IPageLayout {
      * @return the view layout, or <code>null</code>
      * @since 3.0
      */
+	@Nullable
     public IViewLayout getViewLayout(String id);
 
     /**
@@ -556,5 +559,6 @@ public interface IPageLayout {
 	 * @return the folder layout, or <code>null</code>
 	 * @since 3.3
 	 */
+	@Nullable
     public IPlaceholderFolderLayout getFolderForView(String id);
 }

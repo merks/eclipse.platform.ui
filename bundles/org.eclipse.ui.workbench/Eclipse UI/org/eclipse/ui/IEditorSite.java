@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelectionProvider;
 
@@ -34,6 +35,7 @@ public interface IEditorSite extends IWorkbenchPartSite {
      *
      * @return the editor action bar contributor, or <code>null</code> if none exists
      */
+	@Nullable
     public IEditorActionBarContributor getActionBarContributor();
 
     /**

@@ -86,6 +86,7 @@ import org.eclipse.e4.ui.workbench.modeling.EModelService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService;
 import org.eclipse.e4.ui.workbench.modeling.EPartService.PartState;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.IPageChangeProvider;
@@ -4518,6 +4519,7 @@ public class WorkbenchPage implements IWorkbenchPage {
 	}
 
 	@Override
+	@Nullable
 	public IViewPart[] getViewStack(IViewPart part) {
 		MPart mpart = partService.findPart(part.getSite().getId());
 		if (mpart != null) {

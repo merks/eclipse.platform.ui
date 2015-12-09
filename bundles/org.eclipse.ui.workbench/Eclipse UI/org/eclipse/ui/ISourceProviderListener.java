@@ -12,6 +12,7 @@
 package org.eclipse.ui;
 
 import java.util.Map;
+import org.eclipse.jdt.annotation.Nullable;
 
 /**
  * <p>
@@ -62,5 +63,5 @@ public interface ISourceProviderListener {
 	 * @see ISources
 	 */
 	public void sourceChanged(final int sourcePriority,
-			final String sourceName, final Object sourceValue);
+			String sourceName, @Nullable Object sourceValue);
 }

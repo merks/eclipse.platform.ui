@@ -16,6 +16,7 @@ import java.util.Map;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
@@ -38,8 +39,12 @@ public class EditorProvider extends QuickAccessProvider {
 	public QuickAccessElement[] getElements() {
 		if (idToElement == null) {
 			idToElement = new HashMap();
-			IWorkbenchPage activePage = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage();
+			IWorkbenchWindow window = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow();
+			if (window == null) {
+				return new QuickAccessElement[0];
+			}
+			IWorkbenchPage activePage = window.getActivePage();
 			if (activePage == null) {
 				return new QuickAccessElement[0];
 			}

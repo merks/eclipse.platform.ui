@@ -15,6 +15,7 @@ import org.eclipse.core.expressions.EvaluationResult;
 import org.eclipse.core.expressions.Expression;
 import org.eclipse.core.expressions.ExpressionInfo;
 import org.eclipse.core.expressions.IEvaluationContext;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -38,6 +39,7 @@ public final class LegacyHandlerSubmissionExpression extends Expression {
 	 * evaluate to <code>true</code>. If this value is <code>null</code>,
 	 * then any part may be active.
 	 */
+	@Nullable
 	private final String activePartId;
 
 	/**
@@ -45,6 +47,7 @@ public final class LegacyHandlerSubmissionExpression extends Expression {
 	 * <code>true</code>. If this value is <code>null</code>, then any
 	 * shell may be active.
 	 */
+	@Nullable
 	private final Shell activeShell;
 
 	/**
@@ -52,6 +55,7 @@ public final class LegacyHandlerSubmissionExpression extends Expression {
 	 * <code>true</code>. If this value is <code>null</code>, then any
 	 * site may be active.
 	 */
+	@Nullable
 	private final IWorkbenchPartSite activeSite;
 
 	/**
@@ -68,7 +72,7 @@ public final class LegacyHandlerSubmissionExpression extends Expression {
 	 *            The site to match with the active site; <code>null</code> if
 	 *            it will match any active site.
 	 */
-	public LegacyHandlerSubmissionExpression(final String activePartId,
+	public LegacyHandlerSubmissionExpression(@Nullable final String activePartId,
 			final Shell activeShell, final IWorkbenchPartSite activeSite) {
 
 		this.activePartId = activePartId;

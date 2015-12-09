@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -75,6 +76,7 @@ public interface IActionBars {
      * @see IWorkbenchActionConstants
      * @see #setGlobalActionHandler(String, IAction)
      */
+	@Nullable
     public IAction getGlobalActionHandler(String actionId);
 
     /**
@@ -135,7 +137,7 @@ public interface IActionBars {
      *	<code>null</code> to clear any existing handler
      * @see IWorkbenchActionConstants
      */
-    public void setGlobalActionHandler(String actionId, IAction handler);
+	public void setGlobalActionHandler(String actionId, @Nullable IAction handler);
 
 	/**
 	 * Updates the action bars.

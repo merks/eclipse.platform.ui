@@ -14,12 +14,14 @@ package org.eclipse.ui.internal.quickaccess;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.preference.IPreferenceNode;
 import org.eclipse.jface.preference.PreferenceManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
@@ -44,8 +46,7 @@ public class PropertiesProvider extends QuickAccessProvider {
 	public QuickAccessElement[] getElements() {
 		if (idToElement == null) {
 			idToElement = new HashMap();
-			IWorkbenchPage activePage = PlatformUI.getWorkbench()
-					.getActiveWorkbenchWindow().getActivePage();
+			IWorkbenchPage activePage = getActivePage();
 			if (activePage != null) {
 				PropertyPageManager pageManager = new PropertyPageManager();
 				ISelection selection = activePage.getSelection();
@@ -70,6 +71,12 @@ public class PropertiesProvider extends QuickAccessProvider {
 		}
 		return (QuickAccessElement[]) idToElement.values().toArray(
 				new QuickAccessElement[idToElement.values().size()]);
+	}
+
+	private @Nullable IWorkbenchPage getActivePage() {
+		IWorkbenchWindow window = PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow();
+		return window == null ? null : window.getActivePage();
 	}
 
 	@Override

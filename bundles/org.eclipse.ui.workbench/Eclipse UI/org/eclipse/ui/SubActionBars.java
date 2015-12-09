@@ -16,13 +16,13 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.WeakHashMap;
-
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.core.commands.common.EventManager;
 import org.eclipse.core.expressions.EvaluationResult;
 import org.eclipse.core.expressions.Expression;
 import org.eclipse.core.expressions.ExpressionInfo;
 import org.eclipse.core.expressions.IEvaluationContext;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IStatusLineManager;
@@ -225,6 +225,7 @@ public class SubActionBars extends EventManager implements IActionBars {
 	 *            the parent toolbar manager
 	 * @return the tool bar manager
 	 */
+	@Nullable
 	protected SubToolBarManager createSubToolBarManager(IToolBarManager parent) {
 		return new SubToolBarManager(parent);
 	}

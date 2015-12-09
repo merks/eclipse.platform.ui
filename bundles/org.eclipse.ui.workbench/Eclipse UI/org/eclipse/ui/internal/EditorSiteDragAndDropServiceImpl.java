@@ -164,6 +164,9 @@ public class EditorSiteDragAndDropServiceImpl implements IDragAndDropService, ID
 		int editorSiteOps = DND.DROP_DEFAULT | DND.DROP_COPY | DND.DROP_LINK;
 
 		WorkbenchWindow ww = (WorkbenchWindow) PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+		if (ww == null) {
+			return; // FIXME: hmm... whatodo
+		}
         WorkbenchWindowConfigurer winConfigurer = ww.getWindowConfigurer();
         Transfer[] editorSiteTransfers = winConfigurer.getTransfers();
         DropTargetListener editorSiteListener = winConfigurer.getDropTargetListener();

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 
@@ -79,5 +80,5 @@ public interface IActionDelegate {
      * @param selection the current selection, or <code>null</code> if there
      * 		is no selection.
      */
-    public void selectionChanged(IAction action, ISelection selection);
+	public void selectionChanged(IAction action, @Nullable ISelection selection);
 }

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
@@ -52,6 +53,7 @@ public interface IPerspectiveDescriptor {
      * @return the description
      * @since 3.0
      */
+	@Nullable
     public String getDescription();
 
     /**

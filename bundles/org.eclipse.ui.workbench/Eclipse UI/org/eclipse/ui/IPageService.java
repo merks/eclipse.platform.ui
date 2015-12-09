@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * A page service tracks the page and perspective lifecycle events
  * within a workbench window.
@@ -63,6 +65,7 @@ public interface IPageService {
      *
      * @return the active page, or <code>null</code> if no page is currently active
      */
+	@Nullable
     public IWorkbenchPage getActivePage();
 
     /**

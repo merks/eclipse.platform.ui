@@ -160,6 +160,7 @@ public interface IWorkbenchPart extends IAdaptable {
      * @return The part site; this value may be <code>null</code> if the part
      *         has not yet been initialized
      */
+	// @Nullable?
     public IWorkbenchPartSite getSite();
 
     /**

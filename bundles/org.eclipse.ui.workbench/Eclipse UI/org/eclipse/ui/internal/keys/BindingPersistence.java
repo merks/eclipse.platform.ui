@@ -36,6 +36,7 @@ import org.eclipse.core.runtime.IExtensionDelta;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IRegistryChangeEvent;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.bindings.Binding;
 import org.eclipse.jface.bindings.BindingManager;
 import org.eclipse.jface.bindings.Scheme;
@@ -1109,7 +1110,7 @@ public class BindingPersistence extends PreferencePersistence {
 	 *            The scheme to write to the preference store. If the scheme is
 	 *            <code>null</code>, then it is removed.
 	 */
-	private static final void writeActiveScheme(final Scheme scheme) {
+	private static final void writeActiveScheme(final @Nullable Scheme scheme) {
 		final IPreferenceStore store = PlatformUI.getPreferenceStore();
 		final String schemeId = (scheme == null) ? null : scheme.getId();
 		final String defaultSchemeId = store

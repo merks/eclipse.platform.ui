@@ -56,6 +56,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ActiveShellExpression;
 import org.eclipse.ui.IWorkbenchCommandConstants;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.activities.WorkbenchActivityHelper;
 import org.eclipse.ui.dialogs.FilteredTree;
@@ -262,10 +263,12 @@ public abstract class FilteredPreferenceDialog extends PreferenceDialog
 		} else {
 			treeViewer.setLabelProvider(new PreferenceBoldLabelProvider(filteredTree));
 		}
-		IContributionService cs = PlatformUI
-				.getWorkbench().getActiveWorkbenchWindow().getService(
-						IContributionService.class);
-		treeViewer.setComparator(cs.getComparatorFor(getContributionType()));
+		IWorkbenchWindow window = PlatformUI
+				.getWorkbench().getActiveWorkbenchWindow();
+		if (window != null) {
+			IContributionService cs = window.getService(IContributionService.class);
+			treeViewer.setComparator(cs.getComparatorFor(getContributionType()));
+		}
 		treeViewer.setContentProvider(new PreferenceContentProvider());
 	}
 

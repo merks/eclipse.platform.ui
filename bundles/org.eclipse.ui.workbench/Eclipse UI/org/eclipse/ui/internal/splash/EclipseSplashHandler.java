@@ -78,7 +78,7 @@ public class EclipseSplashHandler extends BasicSplashHandler {
 				(foregroundColorInteger & 0xFF00) >> 8,
 				foregroundColorInteger & 0xFF));
 		// the following code will be removed for release time
-		if (PrefUtil.getInternalPreferenceStore().getBoolean(
+		if (product != null && PrefUtil.getInternalPreferenceStore().getBoolean(
 				"SHOW_BUILDID_ON_STARTUP")) { //$NON-NLS-1$
 			final String buildId = System.getProperty(
 					"eclipse.buildId", "Unknown Build"); //$NON-NLS-1$ //$NON-NLS-2$

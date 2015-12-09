@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * Represents the context marked for the user in the navigation history.
  *
@@ -72,6 +74,7 @@ public interface INavigationLocation {
      *
      * @return the input for this location
      */
+	@Nullable
     public Object getInput();
 
     /**

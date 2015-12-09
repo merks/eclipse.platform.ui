@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
@@ -98,5 +99,6 @@ public interface IEditorDescriptor extends IWorkbenchPartDescriptor {
      * @return the editor matching strategy, or <code>null</code> if none
      * @since 3.1
      */
+	@Nullable
     public IEditorMatchingStrategy getEditorMatchingStrategy();
 }

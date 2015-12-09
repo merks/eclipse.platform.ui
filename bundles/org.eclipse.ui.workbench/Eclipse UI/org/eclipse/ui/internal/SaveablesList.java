@@ -152,7 +152,7 @@ public class SaveablesList implements ISaveablesLifecycleListener {
 		Integer refCount = referenceMap.get(key);
 		if (refCount == null)
 			Assert.isTrue(false, key + ": " + key.getName()); //$NON-NLS-1$
-		if (refCount.intValue() == 1) {
+		else if (refCount.intValue() == 1) {
 			referenceMap.remove(key);
 			result = true;
 		} else {

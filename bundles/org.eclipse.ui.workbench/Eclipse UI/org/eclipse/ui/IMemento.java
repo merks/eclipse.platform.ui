@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.w3c.dom.DOMException;
 
 /**
@@ -97,6 +98,7 @@ public interface IMemento {
 	 * @return the first child with the given type. May return <code>null</code>
 	 *         .
 	 */
+	@Nullable
     public IMemento getChild(String type);
 
 	/**
@@ -127,6 +129,7 @@ public interface IMemento {
      * @return the value, or <code>null</code> if the key was not found or was found
      *   but was not a floating point number
      */
+	@Nullable
     public Float getFloat(String key);
 
     /**
@@ -154,6 +157,7 @@ public interface IMemento {
      * @return the value, or <code>null</code> if the key was not found or was found
      *   but was not an integer
      */
+	@Nullable
     public Integer getInteger(String key);
 
     /**
@@ -162,6 +166,7 @@ public interface IMemento {
      * @param key the key
      * @return the value, or <code>null</code> if the key was not found
      */
+	@Nullable
     public String getString(String key);
 
     /**
@@ -171,6 +176,7 @@ public interface IMemento {
 	 * @return the value, or <code>null</code> if the key was not found
      * @since 3.4
 	 */
+	@Nullable
 	public Boolean getBoolean(String key);
 
 	/**
@@ -181,6 +187,7 @@ public interface IMemento {
      * if the memento has no Text node.
      * @since 2.0
      */
+	@Nullable
     public String getTextData();
 
     /**
@@ -222,7 +229,7 @@ public interface IMemento {
      * @param key the key
      * @param value the value
      */
-    public void putString(String key, String value);
+	public void putString(String key, @Nullable String value);
 
     /**
 	 * Sets the value of the given key to the given boolean value.

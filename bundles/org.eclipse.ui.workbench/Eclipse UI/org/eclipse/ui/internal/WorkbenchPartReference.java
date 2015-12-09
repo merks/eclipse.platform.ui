@@ -324,11 +324,10 @@ public abstract class WorkbenchPartReference implements IWorkbenchPartReference,
 	@Override
 	public final Image getTitleImage() {
 		if (isDisposed()) {
-			return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_DEF_VIEW);
+			return getSite().getWorkbenchWindow().getWorkbench().getSharedImages().getImage(ISharedImages.IMG_DEF_VIEW);
 		}
 
-		WorkbenchWindow wbw = (WorkbenchWindow) PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow();
+		WorkbenchWindow wbw = (WorkbenchWindow) getSite().getWorkbenchWindow();
 		if (part != null && wbw.getModel().getRenderer() instanceof SWTPartRenderer) {
 			SWTPartRenderer r = (SWTPartRenderer) wbw.getModel().getRenderer();
 			Image image = r.getImage(part);
