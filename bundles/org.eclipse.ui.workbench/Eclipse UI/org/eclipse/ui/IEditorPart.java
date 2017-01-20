@@ -11,6 +11,8 @@
 
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * An editor is a visual component within a workbench page. It is
  * typically used to edit or browse a document or input object. The input
@@ -61,11 +63,12 @@ public interface IEditorPart extends IWorkbenchPart, ISaveablePart {
     public static final int PROP_INPUT = IWorkbenchPartConstants.PROP_INPUT;
 
     /**
-     * Returns the input for this editor.  If this value changes the part must
-     * fire a property listener event with <code>PROP_INPUT</code>.
-     *
-     * @return the editor input
-     */
+	 * Returns the input for this editor. If this value changes the part must
+	 * fire a property listener event with <code>PROP_INPUT</code>.
+	 *
+	 * @return the editor input or {@code null} if none
+	 */
+	@Nullable
     public IEditorInput getEditorInput();
 
     /**

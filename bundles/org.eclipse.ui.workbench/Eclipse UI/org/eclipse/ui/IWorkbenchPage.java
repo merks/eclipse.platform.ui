@@ -366,6 +366,7 @@ public interface IWorkbenchPage extends IPartService, ISelectionService {
 	 * @return the view reference, or <code>null</code> if none is found
 	 * @since 3.0
 	 */
+	@Nullable
 	public IViewReference findViewReference(String viewId, @Nullable String secondaryId);
 
 	/**

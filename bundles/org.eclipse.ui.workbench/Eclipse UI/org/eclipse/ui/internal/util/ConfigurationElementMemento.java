@@ -29,12 +29,12 @@ public final class ConfigurationElementMemento implements IMemento {
 
     @Override
 	public IMemento createChild(String type) {
-        return null;
+		throw new UnsupportedOperationException();
     }
 
     @Override
 	public IMemento createChild(String type, String id) {
-        return null;
+		throw new UnsupportedOperationException();
     }
 
     @Override

@@ -37,7 +37,10 @@ public class ClosePerspectiveHandler extends AbstractHandler {
 				String value = (String) parameters
 						.get(IWorkbenchCommandConstants.WINDOW_CLOSE_PERSPECTIVE_PARM_ID);
 				if (value == null) {
-					page.closePerspective(page.getPerspective(), true, true);
+					IPerspectiveDescriptor perspective = page.getPerspective();
+					if (perspective != null) {
+						page.closePerspective(perspective, true, true);
+					}
 				} else {
 					IPerspectiveDescriptor perspective = activeWorkbenchWindow
 							.getWorkbench().getPerspectiveRegistry()

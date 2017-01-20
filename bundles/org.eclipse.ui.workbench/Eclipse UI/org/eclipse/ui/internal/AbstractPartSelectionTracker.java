@@ -12,6 +12,7 @@ package org.eclipse.ui.internal;
 
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.SafeRunner;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.INullSelectionListener;
@@ -108,14 +109,20 @@ public abstract class AbstractPartSelectionTracker {
      * @param sel the selection or <code>null</code> if no active selection
      * @param listeners the list of listeners to notify
      */
-    protected void fireSelection(final IWorkbenchPart part, final ISelection sel) {
+	protected void fireSelection(@Nullable final IWorkbenchPart part, @Nullable final ISelection sel) {
 		for (final ISelectionListener l : fListeners) {
-            if ((part != null && sel != null)
-                    || l instanceof INullSelectionListener) {
+			if (part != null && sel != null) {
+				SafeRunner.run(new SafeRunnable() {
+					@Override
+					public void run() {
+						l.selectionChanged(part, sel);
+					}
+				});
+			} else if (l instanceof INullSelectionListener) {
                 SafeRunner.run(new SafeRunnable() {
                     @Override
 					public void run() {
-                        l.selectionChanged(part, sel);
+						((INullSelectionListener) l).selectionChanged(part, sel);
                     }
                 });
             }
@@ -129,15 +136,20 @@ public abstract class AbstractPartSelectionTracker {
      * @param sel the selection or <code>null</code> if no active selection
      * @param listeners the list of listeners to notify
      */
-    protected void firePostSelection(final IWorkbenchPart part,
-            final ISelection sel) {
+	protected void firePostSelection(@Nullable final IWorkbenchPart part, @Nullable final ISelection sel) {
 		for (final ISelectionListener l : postListeners) {
-            if ((part != null && sel != null)
-                    || l instanceof INullSelectionListener) {
+			if (part != null && sel != null) {
+				SafeRunner.run(new SafeRunnable() {
+					@Override
+					public void run() {
+						l.selectionChanged(part, sel);
+					}
+				});
+			} else if (l instanceof INullSelectionListener) {
                 SafeRunner.run(new SafeRunnable() {
                     @Override
 					public void run() {
-                        l.selectionChanged(part, sel);
+						((INullSelectionListener) l).selectionChanged(part, sel);
                     }
                 });
             }

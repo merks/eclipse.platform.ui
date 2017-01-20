@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -129,16 +130,18 @@ public class EditorReference extends WorkbenchPartReference implements IEditorRe
 
 		// If the editor hasn't been rendered yet then see if we can grab the
 		// info from the model
-		if (editor == null && getModel() != null) {
-			String savedState = getModel().getPersistedState().get(MEMENTO_KEY);
-			if (savedState != null) {
-				StringReader sr = new StringReader(savedState);
-				try {
-					XMLMemento memento = XMLMemento.createReadRoot(sr);
-					return memento;
-				} catch (WorkbenchException e) {
-					WorkbenchPlugin.log(e);
-					return null;
+		if (editor == null) {
+			if (getModel() != null) {
+				String savedState = getModel().getPersistedState().get(MEMENTO_KEY);
+				if (savedState != null) {
+					StringReader sr = new StringReader(savedState);
+					try {
+						XMLMemento memento = XMLMemento.createReadRoot(sr);
+						return memento;
+					} catch (WorkbenchException e) {
+						WorkbenchPlugin.log(e);
+						return null;
+					}
 				}
 			}
 			return null;
@@ -262,6 +265,7 @@ public class EditorReference extends WorkbenchPartReference implements IEditorRe
 			throw new PartInitException(NLS.bind(
 					WorkbenchMessages.EditorManager_no_input_factory_ID, editorId, editorName));
 		}
+		Assert.isNotNull(inputMem);
 		IAdaptable input = null;
 		IElementFactory factory = PlatformUI.getWorkbench().getElementFactory(factoryID);
 		if (factory == null) {

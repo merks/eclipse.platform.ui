@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.viewers.ISelection;
 
 /**
@@ -126,6 +127,7 @@ public interface ISelectionService {
      *
      * @return the current selection, or <code>null</code> if undefined
      */
+	@Nullable
     public ISelection getSelection();
 
     /**
@@ -137,6 +139,7 @@ public interface ISelectionService {
      * @return the current selection, or <code>null</code> if undefined
      * @since 2.0
      */
+	@Nullable
     public ISelection getSelection(String partId);
 
     /**

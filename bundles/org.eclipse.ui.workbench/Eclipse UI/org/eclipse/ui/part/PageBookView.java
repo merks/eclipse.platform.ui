@@ -1021,27 +1021,34 @@ public abstract class PageBookView extends ViewPart implements IPartListener {
 	private IPartListener2 partListener = new IPartListener2() {
 		@Override
 		public void partActivated(IWorkbenchPartReference partRef) {
-			if (partRef == null) {
-				WorkbenchPlugin.log("partRef is null in PageBookView partActivated"); //$NON-NLS-1$
-				return;
-			}
 			IWorkbenchPart part = partRef.getPart(false);
-			PageBookView.this.partActivated(part);
+			if (part != null) {
+				PageBookView.this.partActivated(part);
+			}
 		}
 
 		@Override
 		public void partBroughtToTop(IWorkbenchPartReference partRef) {
-			PageBookView.this.partBroughtToTop(partRef.getPart(false));
+			IWorkbenchPart part = partRef.getPart(false);
+			if (part != null) {
+				PageBookView.this.partBroughtToTop(part);
+			}
 		}
 
 		@Override
 		public void partClosed(IWorkbenchPartReference partRef) {
-			PageBookView.this.partClosed(partRef.getPart(false));
+			IWorkbenchPart part = partRef.getPart(false);
+			if (part != null) {
+				PageBookView.this.partClosed(part);
+			}
 		}
 
 		@Override
 		public void partDeactivated(IWorkbenchPartReference partRef) {
-			PageBookView.this.partDeactivated(partRef.getPart(false));
+			IWorkbenchPart part = partRef.getPart(false);
+			if (part != null) {
+				PageBookView.this.partDeactivated(part);
+			}
 		}
 
 		@Override
@@ -1055,12 +1062,18 @@ public abstract class PageBookView extends ViewPart implements IPartListener {
 
 		@Override
 		public void partOpened(IWorkbenchPartReference partRef) {
-			PageBookView.this.partOpened(partRef.getPart(false));
+			IWorkbenchPart part = partRef.getPart(false);
+			if (part != null) {
+				PageBookView.this.partOpened(part);
+			}
 		}
 
 		@Override
 		public void partVisible(IWorkbenchPartReference partRef) {
-			PageBookView.this.partVisible(partRef.getPart(false));
+			IWorkbenchPart part = partRef.getPart(false);
+			if (part != null) {
+				PageBookView.this.partVisible(part);
+			}
 		}
 	};
 
@@ -1075,8 +1088,8 @@ public abstract class PageBookView extends ViewPart implements IPartListener {
 		}
 		// if we've minimized the editor stack, that's no reason to
 		// drop our content
-		if (getSite().getPage().getPartState(
-				getSite().getPage().getReference(part)) == IWorkbenchPage.STATE_MINIMIZED) {
+		IWorkbenchPartReference ref = getSite().getPage().getReference(part);
+		if (ref != null && getSite().getPage().getPartState(ref) == IWorkbenchPage.STATE_MINIMIZED) {
 			return;
 		}
 		// if we're switching from a part source in our own stack,

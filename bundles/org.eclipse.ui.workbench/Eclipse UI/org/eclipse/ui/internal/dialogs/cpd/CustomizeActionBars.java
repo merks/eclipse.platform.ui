@@ -120,7 +120,7 @@ public class CustomizeActionBars implements IActionBarConfigurer2, IActionBars2 
 
 	@Override
 	public IToolBarManager getToolBarManager() {
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

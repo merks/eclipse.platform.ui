@@ -29,6 +29,8 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.WorkbenchMessages;
 import org.eclipse.ui.internal.WorkbenchPlugin;
@@ -196,8 +198,9 @@ public class StatusPart {
 			public void widgetSelected(SelectionEvent e) {
 				try {
 					IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-					if(window != null && window.getActivePage() != null) {
-						window.getActivePage().showView(LOG_VIEW_ID);
+					IWorkbenchPage page = window != null ? window.getActivePage() : null;
+					if (page != null) {
+						page.showView(LOG_VIEW_ID);
 					}
 				} catch (CoreException ce) {
 					StatusManager.getManager().handle(ce, WorkbenchPlugin.PI_WORKBENCH);

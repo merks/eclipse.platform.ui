@@ -173,7 +173,7 @@ public class NavigationHistory implements INavigationHistory {
     }
 
     private Display getDisplay() {
-        return page.getWorkbenchWindow().getShell().getDisplay();
+		return page.getWorkbenchWindow().getWorkbench().getDisplay();
     }
 
     private boolean isPerTabHistoryEnabled() {
@@ -586,9 +586,10 @@ public class NavigationHistory implements INavigationHistory {
     void restoreState(IMemento memento) {
         IMemento editorsMem = memento.getChild(IWorkbenchConstants.TAG_EDITORS);
         IMemento items[] = memento.getChildren(IWorkbenchConstants.TAG_ITEM);
-        if (items.length == 0 || editorsMem == null) {
-            if (page.getActiveEditor() != null) {
-				markLocation(page.getActiveEditor());
+		IEditorPart activeEditor = page.getActiveEditor();
+		if (items.length == 0 || editorsMem == null) {
+            if (activeEditor != null) {
+				markLocation(activeEditor);
 			}
             return;
         }
@@ -603,8 +604,12 @@ public class NavigationHistory implements INavigationHistory {
 
         for (int i = 0; i < items.length; i++) {
             IMemento item = items[i];
-            int index = item.getInteger(IWorkbenchConstants.TAG_INDEX)
-                    .intValue();
+			Integer indexValue = item.getInteger(IWorkbenchConstants.TAG_INDEX);
+			if (indexValue == null) {
+				// should never happen
+				continue;
+			}
+			int index = indexValue.intValue();
             NavigationHistoryEditorInfo info = editorsInfo[index];
             info.refCount++;
             NavigationHistoryEntry entry = new NavigationHistoryEntry(info,
@@ -618,7 +623,7 @@ public class NavigationHistory implements INavigationHistory {
 
         final NavigationHistoryEntry entry = getEntry(activeEntry);
         if (entry != null && entry.editorInfo.editorInput != null) {
-            if (page.getActiveEditor() == page
+            if (activeEditor == page
                     .findEditor(entry.editorInfo.editorInput)) {
             	StartupThreading.runWithoutExceptions(new StartupRunnable() {
 

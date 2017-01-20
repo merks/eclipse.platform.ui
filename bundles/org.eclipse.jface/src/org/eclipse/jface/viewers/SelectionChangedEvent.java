@@ -11,8 +11,8 @@
 package org.eclipse.jface.viewers;
 
 import java.util.EventObject;
-
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.jdt.annotation.NonNull;
 
 /**
  * Event object describing a selection change. The source of these
@@ -33,6 +33,7 @@ public class SelectionChangedEvent extends EventObject {
     /**
      * The selection.
      */
+	@NonNull
     protected ISelection selection;
 
     /**
@@ -41,7 +42,7 @@ public class SelectionChangedEvent extends EventObject {
      * @param source the selection provider
      * @param selection the selection
      */
-    public SelectionChangedEvent(ISelectionProvider source, ISelection selection) {
+	public SelectionChangedEvent(ISelectionProvider source, @NonNull ISelection selection) {
         super(source);
         Assert.isNotNull(selection);
         this.selection = selection;
@@ -52,6 +53,7 @@ public class SelectionChangedEvent extends EventObject {
      *
      * @return the selection
      */
+	@NonNull
     public ISelection getSelection() {
         return selection;
     }

@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.jface.viewers.ISelection;
+
 /**
  * Interface for listening to <code>null</code> selection changes.
  * <p>
@@ -28,4 +31,6 @@ package org.eclipse.ui;
  * @since 2.0
  */
 public interface INullSelectionListener extends ISelectionListener {
+	@Override
+	void selectionChanged(@Nullable IWorkbenchPart part, @Nullable ISelection selection);
 }

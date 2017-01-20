@@ -22,6 +22,7 @@ import org.eclipse.core.commands.State;
 import org.eclipse.core.expressions.EvaluationResult;
 import org.eclipse.core.expressions.Expression;
 import org.eclipse.core.expressions.IEvaluationContext;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.ISafeRunnable;
@@ -471,12 +472,13 @@ public final class ActionDelegateHandlerProxy implements ISelectionListener,
 				if ((objectDelegate != null) && (activePart != null)) {
 					objectDelegate.setActivePart(action, activePart);
 					updateActivePart(activePart);
-				} else if (editorDelegate != null) {
+				} else if (editorDelegate != null && (activeEditor != null)) {
 					editorDelegate.setActiveEditor(action, activeEditor);
 					updateActivePart(activeEditor);
 				} else if ((viewId != null) && (page != null)
 						&& (viewDelegate != null)) {
 					final IViewPart viewPart = page.findView(viewId);
+					Assert.isNotNull(viewPart); // checked above
 					viewDelegate.init(viewPart);
 				} else if (windowDelegate != null) {
 					windowDelegate.init(window);

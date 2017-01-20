@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -43,7 +44,6 @@ import org.eclipse.ui.IWorkbenchPart3;
 import org.eclipse.ui.IWorkbenchPartConstants;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.e4.compatibility.CompatibilityPart;
 import org.eclipse.ui.internal.misc.UIListenerLogging;
 import org.eclipse.ui.internal.util.Util;
@@ -324,7 +324,10 @@ public abstract class WorkbenchPartReference implements IWorkbenchPartReference,
 	@Override
 	public final Image getTitleImage() {
 		if (isDisposed()) {
-			return getSite().getWorkbenchWindow().getWorkbench().getSharedImages().getImage(ISharedImages.IMG_DEF_VIEW);
+			Image defaultImage = getSite().getWorkbenchWindow().getWorkbench().getSharedImages()
+					.getImage(ISharedImages.IMG_DEF_VIEW);
+			Assert.isNotNull(defaultImage);
+			return defaultImage;
 		}
 
 		WorkbenchWindow wbw = (WorkbenchWindow) getSite().getWorkbenchWindow();
@@ -336,7 +339,10 @@ public abstract class WorkbenchPartReference implements IWorkbenchPartReference,
 			}
 		}
 
-		return PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_DEF_VIEW);
+		Image defaultImage = getSite().getWorkbenchWindow().getWorkbench().getSharedImages()
+				.getImage(ISharedImages.IMG_DEF_VIEW);
+		Assert.isNotNull(defaultImage);
+		return defaultImage;
 	}
 
     /* package */ void fireVisibilityChange() {

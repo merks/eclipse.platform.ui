@@ -66,7 +66,7 @@ public class MultiEditorInput implements IEditorInput {
      */
     @Override
 	public ImageDescriptor getImageDescriptor() {
-        return null;
+		return ImageDescriptor.getMissingImageDescriptor();
     }
 
     /*

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.ui.internal;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
@@ -92,8 +91,7 @@ public class WWinActionBars implements IActionBars2 {
     @Override
 	public IToolBarManager getToolBarManager() {
         // This should never be called
-        Assert.isTrue(false);
-        return null;
+		throw new UnsupportedOperationException();
     }
 
     /**

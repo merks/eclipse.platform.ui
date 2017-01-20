@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.ContextFunction;
@@ -402,7 +403,9 @@ public abstract class PartSite implements IWorkbenchPartSite {
 	 */
 	@Override
 	public IWorkbenchPage getPage() {
-		return getWorkbenchWindow().getActivePage();
+		IWorkbenchPage activePage = getWorkbenchWindow().getActivePage();
+		Assert.isNotNull(activePage);
+		return activePage;
 	}
 
 
@@ -450,7 +453,9 @@ public abstract class PartSite implements IWorkbenchPartSite {
 			// IWorkbenchSite.getShell() was called outside the UI thread. Fix
 			// this code.")); //$NON-NLS-1$
 
-			return getWorkbenchWindow().getShell();
+			Shell shell = getWorkbenchWindow().getShell();
+			Assert.isNotNull(shell);
+			return shell;
 		}
 
 		Control control = (Control) model.getWidget();

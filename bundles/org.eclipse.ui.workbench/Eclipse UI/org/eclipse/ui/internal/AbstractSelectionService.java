@@ -12,6 +12,7 @@ package org.eclipse.ui.internal;
 
 import java.util.Hashtable;
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.viewers.IPostSelectionProvider;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -117,15 +118,17 @@ public abstract class AbstractSelectionService implements ISelectionService {
      * @param part the part or <code>null</code> if no active part
      * @param sel the selection or <code>null</code> if no active selection
      */
-    protected void fireSelection(final IWorkbenchPart part, final ISelection sel) {
+	protected void fireSelection(@Nullable final IWorkbenchPart part, @Nullable final ISelection sel) {
 		for (final ISelectionListener l : listeners) {
-			if ((part != null && sel != null) || l instanceof INullSelectionListener) {
-                try {
+			try {
+				if (l instanceof INullSelectionListener) {
+					((INullSelectionListener) l).selectionChanged(part, sel);
+				} else if (part != null && sel != null) {
                     l.selectionChanged(part, sel);
-                } catch (Exception e) {
-                    WorkbenchPlugin.log(e);
-                }
-            }
+				}
+			} catch (Exception e) {
+				WorkbenchPlugin.log(e);
+			}
         }
     }
 
@@ -135,18 +138,19 @@ public abstract class AbstractSelectionService implements ISelectionService {
      * @param part the part or <code>null</code> if no active part
      * @param sel the selection or <code>null</code> if no active selection
      */
-    protected void firePostSelection(final IWorkbenchPart part,
-            final ISelection sel) {
+	protected void firePostSelection(@Nullable final IWorkbenchPart part, @Nullable final ISelection sel) {
 		for (final ISelectionListener l : postListeners) {
-			if ((part != null && sel != null) || l instanceof INullSelectionListener) {
-                try {
-                    l.selectionChanged(part, sel);
-                } catch (Exception e) {
-                    WorkbenchPlugin.log(e);
-                }
-            }
-        }
-    }
+			try {
+				if (l instanceof INullSelectionListener) {
+					((INullSelectionListener) l).selectionChanged(part, sel);
+				} else if (part != null && sel != null) {
+					l.selectionChanged(part, sel);
+				}
+			} catch (Exception e) {
+				WorkbenchPlugin.log(e);
+			}
+		}
+	}
 
     /**
      * Returns the per-part selection tracker for the given part id.

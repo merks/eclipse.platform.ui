@@ -48,13 +48,15 @@ public interface IDecoratorManager extends IDelayedLabelDecorator{
     ILabelDecorator getLabelDecorator();
 
     /**
-     * Return the IBaseLabelProvider that corresponds to the
-     * decoratorId. This can handle both lightweight and full
-     * decorators.
-     *
-     * @param decoratorId the decorator id
-     * @return the label provider
-     */
+	 * Return the IBaseLabelProvider that corresponds to the decoratorId if it
+	 * is enabled. Otherwise returns <code>null</code>. This can handle both
+	 * lightweight and full decorators.
+	 *
+	 * @param decoratorId
+	 *            the decorator id
+	 * @return the label provider
+	 */
+	@Nullable
     IBaseLabelProvider getBaseLabelProvider(String decoratorId);
 
     /**

@@ -26,6 +26,7 @@ import org.eclipse.e4.ui.model.application.MApplication;
 import org.eclipse.e4.ui.model.application.ui.basic.MPart;
 import org.eclipse.e4.ui.services.IServiceConstants;
 import org.eclipse.e4.ui.workbench.modeling.ESelectionService;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -232,22 +233,26 @@ public class SelectionService implements ISelectionChangedListener, ISelectionSe
 		targetedPostSelectionListeners.clear();
 	}
 
-	private void notifyListeners(IWorkbenchPart workbenchPart, ISelection selection,
+	private void notifyListeners(@Nullable IWorkbenchPart workbenchPart, @Nullable ISelection selection,
 			ListenerList<ISelectionListener> listenerList) {
 		for (ISelectionListener listener : listenerList) {
-			if (selection != null || listener instanceof INullSelectionListener) {
+			if (listener instanceof INullSelectionListener) {
+				((INullSelectionListener) listener).selectionChanged(workbenchPart, selection);
+			} else if (workbenchPart != null && selection != null) {
 				listener.selectionChanged(workbenchPart, selection);
 			}
 		}
 	}
 
-	private void notifyListeners(IWorkbenchPart workbenchPart, ISelection selection, String id,
+	private void notifyListeners(IWorkbenchPart workbenchPart, @Nullable ISelection selection, String id,
 			Map<String, Set<ISelectionListener>> listenerMap) {
 		if (id != null) {
 			Set<ISelectionListener> listeners = listenerMap.get(id);
 			if (listeners != null) {
 				for (ISelectionListener listener : listeners) {
-					if (selection != null || listener instanceof INullSelectionListener) {
+					if (listener instanceof INullSelectionListener) {
+						((INullSelectionListener) listener).selectionChanged(workbenchPart, selection);
+					} else if (selection != null) {
 						listener.selectionChanged(workbenchPart, selection);
 					}
 				}

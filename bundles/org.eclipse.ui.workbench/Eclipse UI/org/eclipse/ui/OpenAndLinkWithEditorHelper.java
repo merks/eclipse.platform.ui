@@ -11,6 +11,7 @@
 package org.eclipse.ui;
 
 import org.eclipse.core.runtime.Assert;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.util.OpenStrategy;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
@@ -33,6 +34,7 @@ public abstract class OpenAndLinkWithEditorHelper {
 
 	private boolean isLinkingEnabled;
 
+	@Nullable
 	private ISelection lastOpenSelection;
 
 	private InternalListener listener;

@@ -11,6 +11,8 @@
 
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * Default implementation of INavigationLocation.
  *
@@ -20,6 +22,7 @@ public abstract class NavigationLocation implements INavigationLocation {
 
     private IWorkbenchPage page;
 
+	@Nullable
     private IEditorInput input;
 
     /**
@@ -37,7 +40,9 @@ public abstract class NavigationLocation implements INavigationLocation {
      *
      * @return IEditorPart
      */
+	@Nullable
     protected IEditorPart getEditorPart() {
+		IEditorInput input = this.input; // to keep nullness happy
         if (input == null) {
 			return null;
 		}
@@ -45,6 +50,7 @@ public abstract class NavigationLocation implements INavigationLocation {
     }
 
     @Override
+	@Nullable
 	public Object getInput() {
         return input;
     }

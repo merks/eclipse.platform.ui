@@ -386,7 +386,7 @@ public final class Workbench extends EventManager implements IWorkbench,
 	 *
 	 * @since 3.0
 	 */
-	private Display display;
+	private final Display display;
 
 	private boolean workbenchAutoSave = true;
 
@@ -416,7 +416,7 @@ public final class Workbench extends EventManager implements IWorkbench,
 	 *
 	 * @since 3.0
 	 */
-	private WorkbenchAdvisor advisor;
+	private final WorkbenchAdvisor advisor;
 
 	/**
 	 * Object for configuring the workbench. Lazily initialized to an instance
@@ -430,7 +430,7 @@ public final class Workbench extends EventManager implements IWorkbench,
 	/**
 	 * ExtensionEventHandler handles extension life-cycle events.
 	 */
-	private ExtensionEventHandler extensionEventHandler;
+	private final ExtensionEventHandler extensionEventHandler;
 
 	/**
 	 * A count of how many large updates are going on. This tracks nesting of
@@ -457,17 +457,17 @@ public final class Workbench extends EventManager implements IWorkbench,
 	/**
 	 * Listener list for registered IWorkbenchListeners .
 	 */
-	private ListenerList<IWorkbenchListener> workbenchListeners = new ListenerList<>(ListenerList.IDENTITY);
+	private final ListenerList<IWorkbenchListener> workbenchListeners = new ListenerList<>(ListenerList.IDENTITY);
 
 	private ServiceRegistration workbenchService;
 
-	private MApplication application;
+	private final MApplication application;
 
-	private IEclipseContext e4Context;
+	private final IEclipseContext e4Context;
 
-	private IEventBroker eventBroker;
+	private final IEventBroker eventBroker;
 
-	private IExtensionRegistry registry;
+	private final IExtensionRegistry registry;
 
 	boolean initializationDone = false;
 
@@ -477,7 +477,7 @@ public final class Workbench extends EventManager implements IWorkbench,
 
 	private Job autoSaveJob;
 
-	private String id;
+	private final String id;
 	private ServiceRegistration<?> e4WorkbenchService;
 
 
@@ -1469,8 +1469,16 @@ public final class Workbench extends EventManager implements IWorkbench,
 			return iWorkbenchWindow;
 		}
 		// otherwise create new IWorkbenchWindow instance
-		return createWorkbenchWindow(getDefaultPageInput(), getPerspectiveRegistry()
-				.findPerspectiveWithId(getPerspectiveRegistry().getDefaultPerspective()),
+		String defaultPerspectiveId = getPerspectiveRegistry().getDefaultPerspective();
+		if (defaultPerspectiveId == null) {
+			return null;
+		}
+		IPerspectiveDescriptor defaultPerspective = getPerspectiveRegistry()
+				.findPerspectiveWithId(defaultPerspectiveId);
+		if (defaultPerspective == null) {
+			return null;
+		}
+		return createWorkbenchWindow(getDefaultPageInput(), defaultPerspective,
 				activeWindow, false);
 	}
 
@@ -1909,6 +1917,7 @@ public final class Workbench extends EventManager implements IWorkbench,
 					for (Object removed : UIEvents.asIterable(event,
 							UIEvents.EventTags.OLD_VALUE)) {
 						MWindow window = (MWindow) removed;
+						Assert.isNotNull(window, "object was removed"); //$NON-NLS-1$
 						IEclipseContext windowContext = window.getContext();
 						if (windowContext != null) {
 							IWorkbenchWindow wwindow = windowContext.get(IWorkbenchWindow.class);
@@ -2566,8 +2575,9 @@ UIEvents.Context.TOPIC_CONTEXT,
 	@Override
 	public IWorkbenchWindow openWorkbenchWindow(String perspectiveId, IAdaptable input)
 			throws WorkbenchException {
-		IPerspectiveDescriptor descriptor = getPerspectiveRegistry().findPerspectiveWithId(
-				perspectiveId);
+		IPerspectiveDescriptor descriptor = perspectiveId != null
+				? getPerspectiveRegistry().findPerspectiveWithId(perspectiveId)
+				: null;
 		try {
 			MWindow window = BasicFactoryImpl.eINSTANCE.createTrimmedWindow();
 			return openWorkbenchWindow(input, descriptor, window, true);
@@ -2988,14 +2998,14 @@ UIEvents.Context.TOPIC_CONTEXT,
 
 		if (targetWindow != null) {
 			IWorkbenchPage page = targetWindow.getActivePage();
-			if (activate(perspectiveId, page, input)) {
+			if (page != null && activate(perspectiveId, page, input)) {
 				return page;
 			}
 		}
 
 		for (IWorkbenchWindow window : getWorkbenchWindows()) {
 			IWorkbenchPage page = window.getActivePage();
-			if (activate(perspectiveId, page, input)) {
+			if (page != null && activate(perspectiveId, page, input)) {
 				return page;
 			}
 		}
@@ -3006,7 +3016,10 @@ UIEvents.Context.TOPIC_CONTEXT,
 			int mode = store.getInt(IPreferenceConstants.OPEN_PERSP_MODE);
 
 			if (IPreferenceConstants.OPM_NEW_WINDOW != mode) {
-				targetWindow.getShell().open();
+				// XXX: are we sure there's a shell? vestige from pre-model wb?
+				Shell shell = targetWindow.getShell();
+				Assert.isNotNull(shell);
+				shell.open();
 				if (page == null) {
 					page = targetWindow.openPage(perspectiveId, input);
 				} else {
@@ -3016,7 +3029,10 @@ UIEvents.Context.TOPIC_CONTEXT,
 			}
 		}
 
-		return openWorkbenchWindow(perspectiveId, input).getActivePage();
+		IWorkbenchWindow newWindow = openWorkbenchWindow(perspectiveId, input);
+		IWorkbenchPage newWindowPage = newWindow.getActivePage();
+		Assert.isNotNull(newWindowPage);
+		return newWindowPage;
 	}
 
 	/*
@@ -3489,7 +3505,9 @@ UIEvents.Context.TOPIC_CONTEXT,
 		menuSourceProvider.addShowingMenus(menuIds, localSelection, localEditorInput);
 		Map currentState = menuSourceProvider.getCurrentState();
 		for (String key : menuSourceProvider.getProvidedSourceNames()) {
-			e4Context.set(key, currentState.get(key));
+			if (currentState != null) {
+				e4Context.set(key, currentState.get(key));
+			}
 		}
 	}
 

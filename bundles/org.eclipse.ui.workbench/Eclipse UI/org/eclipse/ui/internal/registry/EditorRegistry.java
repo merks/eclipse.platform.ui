@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 import org.eclipse.core.commands.common.EventManager;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -325,7 +326,9 @@ public class EditorRegistry extends EventManager implements IEditorRegistry, IEx
 	public IEditorDescriptor getDefaultEditor() {
         // the default editor will always be the system external editor
         // this should never return null
-        return findEditor(IEditorRegistry.SYSTEM_EXTERNAL_EDITOR_ID);
+		IEditorDescriptor descriptor = findEditor(IEditorRegistry.SYSTEM_EXTERNAL_EDITOR_ID);
+		Assert.isNotNull(descriptor);
+		return descriptor;
     }
 
     @Override
@@ -1082,7 +1085,7 @@ public class EditorRegistry extends EventManager implements IEditorRegistry, IEx
 
     @Override
 	public void setDefaultEditor(String fileName, String editorId) {
-		IEditorDescriptor desc = findEditor(editorId);
+		IEditorDescriptor desc = editorId != null ? findEditor(editorId) : null;
 		setDefaultEditor(fileName, desc);
 	}
 

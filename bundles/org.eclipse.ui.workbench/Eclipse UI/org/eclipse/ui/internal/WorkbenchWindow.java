@@ -778,7 +778,7 @@ public class WorkbenchWindow implements IWorkbenchWindow {
 			preferenceStore.setValue(IWorkbenchPreferenceConstants.ENABLE_ANIMATIONS,
 					enableAnimations);
 
-			getShell().setData(this);
+			shell.setData(this);
 			trackShellActivation();
 		} finally {
 			HandlerServiceImpl.pop();
@@ -826,7 +826,10 @@ public class WorkbenchWindow implements IWorkbenchWindow {
 		}
 
 		if (perspective == null) {
-			perspective = registry.findPerspectiveWithId(registry.getDefaultPerspective());
+			String defaultPerspectiveId = registry.getDefaultPerspective();
+			if (defaultPerspectiveId != null) {
+				perspective = registry.findPerspectiveWithId(defaultPerspectiveId);
+			}
 		}
 
 		// the perspective stack doesn't have a selected element what means that
@@ -2089,7 +2092,11 @@ STATUS_LINE_ID, model);
 
 	@Override
 	public IWorkbenchPage openPage(IAdaptable input) throws WorkbenchException {
-		return openPage(workbench.getPerspectiveRegistry().getDefaultPerspective(), input);
+		String defaultPerspectiveId = workbench.getPerspectiveRegistry().getDefaultPerspective();
+		if (defaultPerspectiveId == null) {
+			throw new WorkbenchException(WorkbenchMessages.WorkbenchPage_NoDefaultPerspective);
+		}
+		return openPage(defaultPerspectiveId, input);
 	}
 
 	/*

@@ -371,6 +371,7 @@ public class WorkbenchMessages extends NLS {
 
 	public static String WorkbenchWindow_close;
 	public static String WorkbenchPage_ErrorCreatingPerspective;
+	public static String WorkbenchPage_NoDefaultPerspective;
 
 	public static String SelectWorkingSetAction_text;
 	public static String SelectWorkingSetAction_toolTip;
@@ -1006,7 +1007,4 @@ public class WorkbenchMessages extends NLS {
 	// Util
 	public static String Util_List;
 	public static String Util_listNull;
-
-
-
 }

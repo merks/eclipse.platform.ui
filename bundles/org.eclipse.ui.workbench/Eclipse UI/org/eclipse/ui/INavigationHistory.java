@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.ui;
 
+import org.eclipse.jdt.annotation.Nullable;
+
 /**
  * Manages a list of entries to keep a history of locations on editors,
  * enabling the user to go back and forward without losing context.
@@ -50,6 +52,7 @@ public interface INavigationHistory {
      *
      * @return the current location
      */
+	@Nullable
     public INavigationLocation getCurrentLocation();
 
     /**

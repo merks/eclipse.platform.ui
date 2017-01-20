@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.ui.workbench.renderers.swt.ContributedPartRenderer;
+import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -359,7 +360,7 @@ public abstract class WorkbenchPart extends EventManager implements
      *
      * @since 3.0
      */
-    protected void setPartName(String partName) {
+	protected void setPartName(@NonNull String partName) {
 
         internalSetPartName(partName);
 
@@ -410,7 +411,7 @@ public abstract class WorkbenchPart extends EventManager implements
      *
      * @since 3.0
      */
-    protected void setContentDescription(String description) {
+	protected void setContentDescription(@NonNull String description) {
         internalSetContentDescription(description);
 
         setDefaultTitle();

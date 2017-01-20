@@ -16,6 +16,8 @@ import java.util.HashMap;
 import java.util.Map;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.jdt.annotation.NonNull;
+import org.eclipse.jdt.annotation.Nullable;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -108,6 +110,7 @@ public class WorkbenchSourceProvider extends AbstractSourceProvider implements
 	}
 
 	@Override
+	@NonNull
 	public Map getCurrentState() {
 
 		final Map currentState = new HashMap();
@@ -130,12 +133,10 @@ public class WorkbenchSourceProvider extends AbstractSourceProvider implements
 		Object object = currentState.get(ISources.ACTIVE_PART_NAME);
 		if (object instanceof IWorkbenchPart) {
 			IWorkbenchPart part = (IWorkbenchPart) object;
-			if (part.getSite() != null
-					&& part.getSite().getSelectionProvider() != null) {
+			ISelectionProvider provider = part.getSite() != null ? part.getSite().getSelectionProvider() : null;
+			if (provider != null) {
 				sources = ISources.ACTIVE_CURRENT_SELECTION;
-				ISelection currentSelection = part.getSite()
-						.getSelectionProvider()
-						.getSelection();
+				ISelection currentSelection = provider.getSelection();
 				currentState.put(ISources.ACTIVE_CURRENT_SELECTION_NAME,
 						currentSelection);
 			}
@@ -144,7 +145,7 @@ public class WorkbenchSourceProvider extends AbstractSourceProvider implements
 	}
 
 	@Override
-	public final void selectionChanged(final IWorkbenchPart part,
+	public final void selectionChanged(@Nullable final IWorkbenchPart part,
 			final ISelection newSelection) {
 
 		if (Util.equals(selection, newSelection))
