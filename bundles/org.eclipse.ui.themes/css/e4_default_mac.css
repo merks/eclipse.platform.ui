@@ -17,7 +17,7 @@
 @import url("platform:/plugin/org.eclipse.ui.themes/css/e4_basestyle.css");
 
 ColorDefinition#org-eclipse-ui-workbench-ACTIVE_UNSELECTED_TABS_COLOR_START {
-	color: #F6F6F6;
+	color: #D6D6D6;
 }
 
 ColorDefinition#org-eclipse-ui-workbench-ACTIVE_UNSELECTED_TABS_COLOR_END {
