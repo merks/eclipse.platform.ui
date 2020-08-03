@@ -1259,7 +1259,8 @@ public class CopyFilesAndFoldersOperation {
 			// the same undo history and therefore a redo cannot be properly
 			// done. Just execute it directly so it won't be added to the undo
 			// history.
-			op.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(messageShell));
+			PlatformUI.getWorkbench().getOperationSupport().getOperationHistory().execute(op, monitor,
+					WorkspaceUndoUtil.getUIInfoAdapter(messageShell));
 		} catch (ExecutionException e) {
 			if (e.getCause() instanceof CoreException) {
 				recordError((CoreException) e.getCause());
@@ -1315,7 +1316,8 @@ public class CopyFilesAndFoldersOperation {
 			// the same undo history and therefore a redo cannot be properly
 			// done. Just execute it directly so it won't be added to the undo
 			// history.
-			op.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(messageShell));
+			PlatformUI.getWorkbench().getOperationSupport().getOperationHistory().execute(op, monitor,
+					WorkspaceUndoUtil.getUIInfoAdapter(messageShell));
 		} catch (ExecutionException e) {
 			if (e.getCause() instanceof CoreException) {
 				recordError((CoreException) e.getCause());
